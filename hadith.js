@@ -63,6 +63,10 @@ window.loadTodayHadith = async function () {
 
   renderHadith(window._hadith);
   loadRecentHadiths(collection, hadithNo, base);
+
+  // After renderHadith(window._hadith);
+  document.getElementById("loading-state").classList.add("hidden");
+  document.getElementById("hadith-content").classList.remove("hidden");
 };
 
 /* ---------- Render hadith card ---------- */

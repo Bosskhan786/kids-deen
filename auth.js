@@ -82,7 +82,9 @@ window.handleLogin = function () {
 
   // Demo shortcut
   if (email === "test@test.com" && pwd === "1234") {
-    const demo = upsertUser(email, {
+    // FIX — only set defaults if user doesn't exist:
+    const existing = getUsers()[email];
+    const demo = upsertUser(email, existing || {
       name: "Demo Kid", email, password: "1234",
       streak: 0, totalLearned: 0,
       lastLogin: null, learnedToday: false,
