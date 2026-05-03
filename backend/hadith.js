@@ -72,7 +72,7 @@ function renderHadith(h) {
 
   document.getElementById("hadith-emoji").textContent       = h.emoji;
   document.getElementById("hadith-arabic").textContent      = h.arabic || "";
-  document.getElementById("hadith-text").textContent        = + h.text;
+  document.getElementById("hadith-text").textContent        = h.text;
   document.getElementById("hadith-explanation").textContent = h.explanation;
   document.getElementById("hadith-source-label").textContent = h.source;
 }
