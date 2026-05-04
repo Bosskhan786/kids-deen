@@ -226,7 +226,7 @@ body {
 
 /* Google button (fallback) */
 .btn-google {
-  width: 100%; padding: .72rem 1rem;
+  width: 100% !important; min-width: 100% !important; padding: .72rem 1rem;
   background: rgba(255,255,255,.96);
   border: 1.5px solid rgba(0,0,0,.15);
   border-radius: 50px;
@@ -239,7 +239,7 @@ body {
 
 /* GIS rendered button wrapper alignment */
 #google-btn-container { display: flex; flex-direction: column; align-items: stretch; gap: .5rem; }
-.g_id_signin { width: 100% !important; }
+.g_id_signin, .g_id_signin iframe, .g_id_signin > div { width: 100% !important; max-width: 100% !important; }
 
 .demo-note {
   margin-top: .9rem; text-align: center;
