@@ -161,7 +161,17 @@ window.handleGoogleFallback = function () {
 
 /** Logout */
 window.handleLogout = function () {
+  const email = getSession();
   clearSession();
+
+  // Tell GSI to forget the Google account so it doesn't auto-show "Continue as X"
+  try {
+    if (window.google && google.accounts && google.accounts.id) {
+      google.accounts.id.disableAutoSelect();
+      if (email) google.accounts.id.revoke(email, () => {});
+    }
+  } catch (e) { /* GSI not loaded, skip */ }
+
   window.onLogout();
 };
 

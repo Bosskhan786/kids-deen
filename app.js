@@ -41,6 +41,22 @@ window.onLogout = function () {
   window._currentUser = null;
   speechSynthesis && speechSynthesis.cancel();
   showScreen("auth-screen");
+  switchTab("login");
+
+  // Re-render the Google Sign-In button without any pre-filled account
+  try {
+    if (window.google && google.accounts && google.accounts.id) {
+      const container = document.querySelector(".g_id_signin");
+      if (container) {
+        container.innerHTML = "";
+        google.accounts.id.renderButton(container, {
+          type: "standard", shape: "pill", theme: "outline",
+          text: "continue_with", size: "large",
+          logo_alignment: "left", width: 320,
+        });
+      }
+    }
+  } catch (e) { /* GSI not loaded */ }
 };
 
 /* ============================================================
