@@ -238,7 +238,7 @@ body {
 .btn-google:hover { background: #f5f5f5; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
 
 /* GIS rendered button wrapper alignment */
-#google-btn-container { display: flex; flex-direction: column; align-items: center; gap: .5rem; }
+#google-btn-container { display: flex; flex-direction: column; align-items: stretch; gap: .5rem; }
 .g_id_signin { width: 100% !important; }
 
 .demo-note {
