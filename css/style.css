@@ -31,8 +31,6 @@
 
 html {
   font-size: 16px;
-  /* fluid base: 15px on small phones → 16px on tablets → 17px on desktops */
-  font-size: clamp(15px, 1vw + 12px, 17px);
 }
 
 body {
@@ -127,12 +125,6 @@ body {
 }
 .auth-card {
   max-width: 380px; width: 100%;
-}
-
-/* Extra small phones: tighten auth hero */
-@media (max-width: 360px) {
-  .auth-mascot { font-size: 48px; }
-  .auth-title  { font-size: 1.65rem; }
 }
 
 /* Tablet+: wider auth card */
@@ -583,75 +575,95 @@ body {
 ::-webkit-scrollbar-thumb  { background: rgba(255,255,255,.2); border-radius: 10px; }
 
 /* ============================================================
-   RESPONSIVE — COMPREHENSIVE BREAKPOINTS
+   RESPONSIVE — SCALE UP ONLY, NOTHING SHRINKS
    ============================================================ */
 
-/* ── Extra small phones (≤ 360px) ── */
-@media (max-width: 360px) {
-  .stats-grid     { grid-template-columns: 1fr 1fr; }
-  .badges-grid    { grid-template-columns: 1fr 1fr; }
-  .btn-action     { font-size: .75rem; padding: .5rem .35rem; min-width: 80px; }
-  .hadith-emoji   { font-size: 46px; }
-  .hadith-text    { font-size: 1rem; }
-  .hadith-arabic  { font-size: 1.1rem; }
-  .action-row     { gap: 6px; }
-  .card-glass     { padding: 1rem .9rem; }
-  .auth-title     { font-size: 1.5rem; }
-  .auth-mascot    { font-size: 48px; }
-  .stat-val       { font-size: 1.05rem; }
+/* ── Tablet (600px+) ── */
+@media (min-width: 600px) {
+  #app            { max-width: 580px; padding: 0 24px 90px; }
+  .auth-card      { max-width: 460px; }
+  .modal-box      { max-width: 500px; }
 }
 
-/* ── Small phones (361–480px) — default styles already target this ── */
-
-/* ── Tablet portrait (481–767px) ── */
-@media (min-width: 481px) and (max-width: 767px) {
-  .hadith-text    { font-size: 1.2rem; }
-  .hadith-arabic  { font-size: 1.45rem; }
-  .hadith-emoji   { font-size: 68px; }
-  .btn-action     { font-size: .92rem; }
-  .stat-val       { font-size: 1.35rem; }
-  .badges-grid    { grid-template-columns: 1fr 1fr 1fr 1fr; }
-  .badge-emoji    { font-size: 1.9rem; }
-}
-
-/* ── Tablet landscape + small desktops (768px+) ── */
+/* ── Tablet landscape / small desktop (768px+) ── */
 @media (min-width: 768px) {
+  #app            { max-width: 660px; padding: 0 32px 100px; }
+  .auth-card      { max-width: 520px; }
+
+  /* Header */
   .app-header     { padding: 1.3rem 0 1rem; }
   .app-name       { font-size: 1.35rem; }
-  .app-logo       { font-size: 1.8rem; }
-  .hadith-text    { font-size: 1.25rem; }
-  .hadith-arabic  { font-size: 1.5rem; }
+  .app-logo       { font-size: 1.9rem; }
+  .header-date    { font-size: .8rem; }
+  .streak-pill    { font-size: .95rem; padding: .28rem .9rem; }
+  .avatar         { width: 44px; height: 44px; }
+
+  /* Cards */
+  .card-glass     { padding: 1.8rem 1.7rem; }
+
+  /* Hadith */
   .hadith-emoji   { font-size: 72px; }
-  .card-glass     { padding: 1.6rem 1.5rem; }
-  .btn-action     { font-size: .95rem; padding: .65rem .6rem; }
-  .badges-grid    { grid-template-columns: 1fr 1fr; }
+  .hadith-arabic  { font-size: 1.5rem; }
+  .hadith-text    { font-size: 1.2rem; }
+  .hadith-explanation { font-size: .95rem; }
+
+  /* Action buttons — keep all 3 in one row, never wrap */
+  .action-row     { flex-wrap: nowrap; gap: 12px; }
+  .btn-action     { font-size: .95rem; padding: .7rem .8rem; min-width: 0; }
+
+  /* Quiz */
+  .quiz-question  { font-size: 1.05rem; }
+  .quiz-option    { font-size: .92rem; padding: .7rem 1.1rem; }
+
+  /* Dashboard */
   .stat-val       { font-size: 1.4rem; }
   .stat-label     { font-size: .75rem; }
   .dash-name      { font-size: 1.4rem; }
-  .quiz-question  { font-size: 1.05rem; }
-  .quiz-option    { font-size: .92rem; }
-  .modal-box      { max-width: 520px; max-height: 88vh; }
+  .avatar-lg      { width: 68px; height: 68px; font-size: 1.6rem; }
+
+  /* Badges — 2 per row stays fine, just bigger cards */
+  .badge-emoji    { font-size: 2.6rem; }
+  .badge-name     { font-size: .92rem; }
+  .badge-desc     { font-size: .76rem; }
+
+  /* Modal */
+  .modal-box      { max-width: 540px; max-height: 88vh; }
   .modal-full-text{ font-size: 1.15rem; }
   .modal-arabic   { font-size: 1.6rem !important; }
+
+  /* Buttons */
   .btn-primary    { font-size: 1.15rem; padding: .95rem; }
+  .btn-read-full  { font-size: .88rem; padding: .38rem 1.1rem; }
+
+  /* Recent list */
+  .recent-item    { padding: .9rem 1.2rem; }
+  .recent-emoji   { font-size: 1.8rem; }
+  .recent-text    { font-size: .92rem; }
+
+  /* Nav */
+  .nav-icon       { font-size: 1.5rem; }
+  .nav-label      { font-size: .78rem; }
 }
 
-/* ── Large desktops (1024px+) ── */
+/* ── Desktop (1024px+) ── */
 @media (min-width: 1024px) {
-  .hadith-text    { font-size: 1.3rem; }
-  .hadith-arabic  { font-size: 1.6rem; }
-  .badges-grid    { grid-template-columns: 1fr 1fr 1fr 1fr; }
-  .badge-emoji    { font-size: 2.4rem; }
-  .badge-name     { font-size: .9rem; }
-  /* Wider layout: two-column hadith + recent side by side */
-  #view-hadith    { display: grid; grid-template-columns: 1fr 280px; gap: 1.2rem; align-items: start; }
-  #view-hadith .hadith-card { margin-bottom: 0; }
-  #view-hadith .section-title,
-  #view-hadith #recent-hadiths { grid-column: 2; }
-  #view-hadith .section-title  { margin-top: .2rem; }
+  #app            { max-width: 740px; padding: 0 40px 100px; }
+
+  .hadith-emoji   { font-size: 80px; }
+  .hadith-arabic  { font-size: 1.65rem; }
+  .hadith-text    { font-size: 1.25rem; }
+  .card-glass     { padding: 2rem 2rem; }
+
+  .stat-val       { font-size: 1.55rem; }
+  .badges-grid    { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .badge-emoji    { font-size: 2.8rem; }
+
+  .modal-box      { max-width: 600px; }
+  .modal-full-text{ font-size: 1.2rem; }
+  .modal-arabic   { font-size: 1.75rem !important; }
 }
 
-/* ── Touch device: remove hover effects that don't apply ── */
+/* ── Touch device: remove sticky hover states ── */
 @media (hover: none) and (pointer: coarse) {
   .btn-primary:hover,
   .btn-action:hover,
@@ -659,8 +671,7 @@ body {
   .btn-read-full:hover,
   .btn-google:hover,
   .btn-logout:hover,
-  .modal-close-btn:hover { transform: none; box-shadow: none; background: unset; }
-  /* Keep :active for touch feedback */
+  .modal-close-btn:hover { transform: none; box-shadow: none; }
   .btn-primary:active { transform: scale(.97); }
   .btn-action:active  { background: rgba(255,255,255,.3); }
 }
