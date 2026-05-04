@@ -234,6 +234,15 @@ window.onload = function () {
     callback: handleGoogleCredential
   });
 
+  // ✅ Initialize Google ONLY once
+  if (!window.googleInitialized) {
+    google.accounts.id.initialize({
+      client_id: "YOUR_CLIENT_ID",
+      callback: handleGoogleCredential
+    });
+    window.googleInitialized = true;
+  }
+
   google.accounts.id.renderButton(
     document.getElementById("google-btn-container"),
     {
