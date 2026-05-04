@@ -63,10 +63,6 @@ window.loadTodayHadith = async function () {
 
   renderHadith(window._hadith);
   loadRecentHadiths(collection, hadithNo, base);
-
-  // After renderHadith(window._hadith);
-  document.getElementById("loading-state").classList.add("hidden");
-  document.getElementById("hadith-content").classList.remove("hidden");
 };
 
 /* ---------- Render hadith card ---------- */
@@ -183,6 +179,10 @@ window.showQuiz = function () {
   const area = document.getElementById("quiz-area");
   area.classList.remove("hidden");
   document.getElementById("btn-quiz").classList.add("hidden");
+  // Reset any previous result banner
+  const banner = document.getElementById("quiz-result-banner");
+  banner.classList.add("hidden");
+  banner.classList.remove("correct", "wrong");
   renderQuizUI(q);
 };
 
@@ -234,6 +234,7 @@ window.submitQuiz = function () {
       banner.classList.add("wrong");
     }
     document.getElementById("quiz-area").classList.add("hidden");
+    document.getElementById("btn-quiz").classList.remove("hidden");
   }, 1200);
 };
 

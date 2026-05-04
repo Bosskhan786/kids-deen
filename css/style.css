@@ -538,14 +538,4 @@ body {
   .btn-action { font-size: .78rem; }
 }
 
-.streak-banner {
-  background: linear-gradient(135deg, #ff6b00, #ff9800);
-  border-radius: 18px;
-  padding: .75rem 1rem;
-  text-align: center;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: #fff;
-  margin-bottom: 1rem;
-}
-.streak-banner.hidden { display: none; }
+/* streak-banner styles defined above near line 265 */

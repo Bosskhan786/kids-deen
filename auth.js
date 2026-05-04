@@ -189,6 +189,4 @@ window.switchTab = function (tab) {
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
   document.getElementById("tab-login").classList.toggle("hidden",  tab !== "login");
   document.getElementById("tab-signup").classList.toggle("hidden", tab !== "signup");
-  document.getElementById("tab-login").classList.toggle("active",  tab === "login");
-  document.getElementById("tab-signup").classList.toggle("active", tab === "signup");
 };
