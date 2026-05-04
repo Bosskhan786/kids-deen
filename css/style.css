@@ -688,6 +688,13 @@ body {
   overflow: hidden;
 }
 
+/* Append closing quote visually after clamped text */
+.hadith-text-preview::after {
+  content: '"';
+  font-family: var(--font-display);
+  color: var(--gold);
+}
+
 .btn-read-full {
   display: inline-block;
   margin: .35rem 0 .7rem;

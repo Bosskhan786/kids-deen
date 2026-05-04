@@ -343,7 +343,7 @@ window.speakHadith = function () {
 };
 
 /* ---------- Helpers ---------- */
-function truncate(str, max) { return str.length <= max ? str : str.slice(0, max).trimEnd() + "…"; }
+function truncate(str, max) { return str.length <= max ? str : str.slice(0, max).trimEnd() + "…\""; }
 
 /* ---------- Offline fallbacks ---------- */
 window.FALLBACK_HADITHS = [
