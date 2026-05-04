@@ -985,3 +985,11 @@ html, body {
   height: 50px !important;
   border-radius: 18px !important;
 }
+#google-btn-container {
+  width: 100%;
+}
+
+.g_id_signin {
+  width: 100% !important;
+  display: block;
+}
