@@ -147,7 +147,8 @@
             <div id="hadith-content" class="hidden">
               <div id="hadith-emoji" class="hadith-emoji"></div>
               <div id="hadith-arabic" class="hadith-arabic"></div>
-              <div id="hadith-text" class="hadith-text"></div>
+              <div id="hadith-text" class="hadith-text hadith-text-preview"></div>
+              <button class="btn-read-full" id="btn-read-full" onclick="openHadithModal()">📖 Read Full Hadith</button>
               <div id="hadith-explanation" class="hadith-explanation"></div>
             </div>
             <div id="quiz-result-banner" class="quiz-result hidden"></div>
@@ -217,6 +218,22 @@
     </section>
 
   </div><!-- /#app -->
+
+  <!-- ===== FULL HADITH MODAL ===== -->
+  <div id="hadith-modal-overlay" class="modal-overlay hidden" onclick="closeHadithModal(event)">
+    <div class="modal-box card-glass" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <span id="modal-source" class="modal-source-label"></span>
+        <button class="modal-close-btn" onclick="closeHadithModal()" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="modal-emoji" class="hadith-emoji" style="font-size:2.5rem;margin-bottom:.5rem"></div>
+        <div id="modal-arabic" class="hadith-arabic modal-arabic"></div>
+        <div id="modal-text" class="modal-full-text"></div>
+        <div id="modal-explanation" class="hadith-explanation" style="margin-top:.9rem"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- App JS modules -->
   <script src="data.js"></script>

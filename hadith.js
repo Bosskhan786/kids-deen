@@ -274,7 +274,35 @@ window.submitQuiz = function () {
   }, 1200);
 };
 
-/* ---------- Mark as Learned ---------- */
+/* ---------- Full Hadith Modal ---------- */
+window.openHadithModal = function () {
+  const h = window._hadith;
+  if (!h) return;
+
+  document.getElementById("modal-source").textContent      = h.source;
+  document.getElementById("modal-emoji").textContent       = h.emoji;
+  document.getElementById("modal-arabic").textContent      = h.arabic || "";
+  document.getElementById("modal-text").textContent        = decodeHtml(h.text);
+  document.getElementById("modal-explanation").textContent = h.explanation;
+
+  const overlay = document.getElementById("hadith-modal-overlay");
+  overlay.classList.remove("hidden");
+  document.body.style.overflow = "hidden"; // prevent background scroll
+};
+
+window.closeHadithModal = function (e) {
+  // Close only if clicking the overlay backdrop or the close button (not the box itself)
+  if (e && e.target !== document.getElementById("hadith-modal-overlay") && !e.target.classList.contains("modal-close-btn")) return;
+  document.getElementById("hadith-modal-overlay").classList.add("hidden");
+  document.body.style.overflow = "";
+};
+
+// Also close on Escape key
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") window.closeHadithModal({ target: document.getElementById("hadith-modal-overlay") });
+});
+
+
 window.markLearned = function () {
   const btn = document.getElementById("btn-learned");
   if (btn.classList.contains("done")) return;
