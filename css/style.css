@@ -607,3 +607,133 @@ body {
 @media (forced-colors: active) {
   .card-glass, .btn-action, .btn-primary { border: 2px solid ButtonText; }
 }
+/* ============================================================
+   COMPLETED ADDITIONS
+   ============================================================ */
+
+/* ---------- Recent hadith items — hover & tap ---------- */
+.recent-item {
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+}
+.recent-item:hover {
+  background: rgba(255,255,255,.18);
+  transform: translateX(3px);
+}
+.recent-item:active { transform: scale(.98); }
+
+/* ---------- Modal — mobile bottom-sheet, desktop centered ---------- */
+@media (max-width: 520px) {
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal-box {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    max-height: 92dvh;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .modal-box { max-height: 96dvh; }
+}
+
+/* ---------- Quiz area slide-in ---------- */
+#quiz-area:not(.hidden) {
+  animation: slideUp .3s ease both;
+}
+
+/* ---------- Quiz result banner pop ---------- */
+.quiz-result:not(.hidden) {
+  animation: popIn .4s ease both;
+}
+
+/* ---------- Btn-primary disabled ---------- */
+.btn-primary:disabled {
+  opacity: .55;
+  cursor: default;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Streak banner slide ---------- */
+#streak-banner:not(.hidden) {
+  animation: slideUp .45s ease both;
+}
+
+/* ---------- Nav label colours ---------- */
+.nav-btn.active .nav-label  { color: var(--gold); }
+.nav-btn:not(.active) .nav-label { color: var(--text-muted); }
+
+/* ---------- Tiny viewport auth card ---------- */
+@media (max-width: 400px) {
+  .auth-card  { border-radius: 20px; }
+  .card-glass { padding: var(--space-sm) clamp(.75rem, 3vw, 1.2rem); }
+}
+
+/* ---------- Hadith text — expanded (no clamp) ---------- */
+.hadith-text-preview.expanded {
+  -webkit-line-clamp: unset;
+  display: block;
+}
+
+/* ---------- btn-read-full active ---------- */
+.btn-read-full:active { transform: scale(.96); }
+
+/* ---------- Header — sticky with blur ---------- */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(13,27,62,.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  margin-left:  calc(-1 * clamp(12px, 4vw, 24px));
+  margin-right: calc(-1 * clamp(12px, 4vw, 24px));
+  padding-left:  clamp(12px, 4vw, 24px);
+  padding-right: clamp(12px, 4vw, 24px);
+}
+
+/* ---------- View fade-in on switch ---------- */
+.view.active { animation: fadeIn .3s ease both; }
+
+/* ---------- Badge card earned hover ---------- */
+.badge-card.earned:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+
+/* ---------- Stat card hover ---------- */
+.stat-card { transition: background .2s, transform .15s; }
+.stat-card:hover {
+  background: rgba(0,0,0,.28);
+  transform: translateY(-2px);
+}
+
+/* ---------- Autofill — keep dark theme ---------- */
+.input-field:-webkit-autofill,
+.input-field:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px rgba(255,255,255,.15) inset !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff;
+}
+
+/* ---------- Keyboard focus rings ---------- */
+.btn-primary:focus-visible,
+.btn-action:focus-visible,
+.btn-google:focus-visible,
+.tab-btn:focus-visible,
+.nav-btn:focus-visible,
+.quiz-option:focus-visible,
+.modal-close-btn:focus-visible {
+  outline: 2.5px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ---------- Print ---------- */
+@media print {
+  #stars-bg, .bottom-nav, .app-header,
+  .action-row, #quiz-area { display: none !important; }
+  body { background: white; color: black; }
+  .hadith-arabic { color: black; background: #f5f5f5; }
+}
