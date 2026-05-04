@@ -898,3 +898,90 @@ html, body {
     padding: 0.4rem;
   }
 }
+
+/* ===============================
+   🔥 MODERN AUTH UI UPGRADE
+   =============================== */
+
+.auth-card {
+  max-width: 380px;
+  width: 100%;
+  padding: 1.8rem 1.5rem;
+  border-radius: 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+/* Title cleaner */
+.auth-title {
+  font-size: 2.2rem;
+  letter-spacing: 0.5px;
+}
+
+/* Input fields modern */
+.input-field {
+  height: 48px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+}
+
+/* Primary button (main CTA) */
+.btn-primary {
+  height: 50px;
+  font-size: 1.05rem;
+  border-radius: 18px;
+  font-weight: 700;
+}
+
+/* Divider better spacing */
+.divider {
+  margin: 1.2rem 0;
+  font-size: 0.75rem;
+}
+
+/* Google button FIXED + MODERN */
+.btn-google {
+  height: 50px;
+  border-radius: 18px;
+  font-size: 0.95rem;
+}
+
+/* Ensure Google iframe fills */
+.g_id_signin,
+.g_id_signin > div,
+.g_id_signin iframe {
+  width: 100% !important;
+}
+
+/* Better spacing */
+#google-btn-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 1.2rem 1rem;
+  }
+
+  .auth-title {
+    font-size: 1.7rem;
+  }
+
+  .btn-primary,
+  .btn-google {
+    height: 46px;
+    font-size: 0.9rem;
+  }
+}
+
+.g_id_signin {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-primary,
+.g_id_signin > div {
+  height: 50px !important;
+  border-radius: 18px !important;
+}
