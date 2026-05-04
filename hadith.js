@@ -13,56 +13,88 @@ window._quizState = { selected: null, submitted: false };
 /* ---------- Fetch today's hadith from CDN API ---------- */
 window.loadTodayHadith = async function () {
   const { collection, hadithNo } = getDailyHadithRef();
-  const base = "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions";
 
-  // Try English edition
-  const engUrl = `${base}/${collection.id}/${hadithNo}.min.json`;
-  // Arabic counterpart edition (e.g. "ara-bukhari")
-  const araId  = collection.id.replace("eng-", "ara-");
-  const araUrl = `${base}/${araId}/${hadithNo}.min.json`;
+  // fawazahmed0 API — try both URL formats (the API has inconsistent versioning)
+  const bases = [
+    "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions",
+    "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@latest/editions",
+  ];
 
+  const araId = collection.id.replace("eng-", "ara-");
   let engText = "", araText = "";
 
-  try {
-    const [engRes, araRes] = await Promise.allSettled([
-      fetch(engUrl).then(r => r.ok ? r.json() : Promise.reject()),
-      fetch(araUrl).then(r => r.ok ? r.json() : Promise.reject()),
-    ]);
+  // Try each base URL until we get text
+  for (const base of bases) {
+    if (engText) break;
+    for (const fname of [`${hadithNo}.min.json`, `${hadithNo}.json`]) {
+      if (engText) break;
+      try {
+        const [engRes, araRes] = await Promise.allSettled([
+          fetch(`${base}/${collection.id}/${fname}`).then(r => r.ok ? r.json() : Promise.reject()),
+          fetch(`${base}/${araId}/${fname}`).then(r => r.ok ? r.json() : Promise.reject()),
+        ]);
 
-    if (engRes.status === "fulfilled") {
-      const d = engRes.value;
-      const arr = d.hadiths || d.hadith || [];
-      engText = (arr[0]?.body || arr[0]?.text || "").trim().replace(/\s+/g, " ");
+        if (engRes.status === "fulfilled") {
+          engText = extractHadithText(engRes.value);
+        }
+        if (araRes.status === "fulfilled") {
+          araText = extractHadithText(araRes.value);
+        }
+      } catch (e) {
+        console.warn("Hadith API fetch error:", e);
+      }
     }
-    if (araRes.status === "fulfilled") {
-      const d = araRes.value;
-      const arr = d.hadiths || d.hadith || [];
-      araText = (arr[0]?.body || arr[0]?.text || "").trim().replace(/\s+/g, " ");
-    }
-  } catch (e) {
-    console.warn("Hadith API fetch error:", e);
   }
 
-  // Fallback if API unreachable
+  // Fallback if API unreachable or returned empty
   if (!engText) engText = FALLBACK_HADITHS[hadithNo % FALLBACK_HADITHS.length].text;
   if (!araText) araText = FALLBACK_HADITHS[hadithNo % FALLBACK_HADITHS.length].arabic;
 
-  const emoji  = HADITH_EMOJIS[hadithNo % HADITH_EMOJIS.length];
+  const emoji       = HADITH_EMOJIS[hadithNo % HADITH_EMOJIS.length];
   const explanation = generateKidsExplanation(engText);
-  const quiz   = generateQuiz(engText, collection.name);
+  const quiz        = generateQuiz(engText, collection.name);
 
   window._hadith = {
-    arabic:      araText,
-    text:        engText,
-    source:      `${collection.name} — #${hadithNo}`,
+    arabic: araText,
+    text:   engText,
+    source: `${collection.name} — #${hadithNo}`,
     explanation,
     emoji,
     quiz,
   };
 
   renderHadith(window._hadith);
-  loadRecentHadiths(collection, hadithNo, base);
+  loadRecentHadiths(collection, hadithNo, bases[0]);
 };
+
+/* ---------- Robustly extract text from any fawazahmed0 response shape ----------
+   Shapes seen in the wild:
+   1. { hadith: [{ hadithnumber, text, ... }] }
+   2. { hadiths: [{ hadithnumber, body, ... }] }
+   3. { [hadithNo]: { body: "..." } }  (keyed by number)
+   ---------------------------------------------------------------- */
+function extractHadithText(d) {
+  if (!d) return "";
+  // Shape 1 & 2 — array under "hadith" or "hadiths"
+  const arr = d.hadiths || d.hadith || [];
+  if (Array.isArray(arr) && arr.length > 0) {
+    const h = arr[0];
+    const raw = h.body || h.text || h.content || "";
+    return raw.trim().replace(/\s+/g, " ");
+  }
+  // Shape 3 — object keyed by hadith number
+  const vals = Object.values(d);
+  for (const v of vals) {
+    if (typeof v === "object" && v !== null) {
+      const raw = v.body || v.text || v.content || "";
+      if (raw) return raw.trim().replace(/\s+/g, " ");
+    }
+    if (typeof v === "string" && v.length > 10) {
+      return v.trim().replace(/\s+/g, " ");
+    }
+  }
+  return "";
+}
 
 /* ---------- Render hadith card ---------- */
 function decodeHtml(html) {
@@ -95,9 +127,8 @@ async function loadRecentHadiths(col, todayNo, base) {
       const r = await fetch(`${base}/${col.id}/${no}.min.json`);
       if (!r.ok) continue;
       const d = await r.json();
-      const arr = d.hadiths || d.hadith || [];
-      const txt = (arr[0]?.body || arr[0]?.text || "").trim();
-      if (txt) results.push({ no, text: txt, source: col.name });
+      const txt = extractHadithText(d);
+      if (txt) results.push({ no, text: decodeHtml(txt), source: col.name });
     } catch { /* skip */ }
   }
 

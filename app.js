@@ -60,8 +60,13 @@ function showScreen(id) {
    VIEW SWITCHING (hadith / dashboard)
    ============================================================ */
 window.switchView = function (viewId) {
-  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
-  document.getElementById("view-" + viewId).classList.add("active");
+  document.querySelectorAll(".view").forEach(v => {
+    v.classList.remove("active");
+    v.classList.add("hidden");
+  });
+  const target = document.getElementById("view-" + viewId);
+  target.classList.remove("hidden");
+  target.classList.add("active");
 
   document.querySelectorAll(".nav-btn").forEach(b => {
     b.classList.toggle("active", b.dataset.view === viewId);
