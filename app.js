@@ -229,20 +229,14 @@ function generateStars() {
 }
 
 window.onload = function () {
+
+  // ✅ Initialize ONLY once (and use REAL client ID)
   google.accounts.id.initialize({
     client_id: "394520757016-uearmb25qd6ofsj2ohbb96k57uudibam.apps.googleusercontent.com",
     callback: handleGoogleCredential
   });
 
-  // ✅ Initialize Google ONLY once
-  if (!window.googleInitialized) {
-    google.accounts.id.initialize({
-      client_id: "YOUR_CLIENT_ID",
-      callback: handleGoogleCredential
-    });
-    window.googleInitialized = true;
-  }
-
+  // ✅ Render button
   google.accounts.id.renderButton(
     document.getElementById("google-btn-container"),
     {
