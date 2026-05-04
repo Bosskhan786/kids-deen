@@ -227,3 +227,22 @@ function generateStars() {
     container.appendChild(star);
   }
 }
+
+window.onload = function () {
+  google.accounts.id.initialize({
+    client_id: "394520757016-uearmb25qd6ofsj2ohbb96k57uudibam.apps.googleusercontent.com",
+    callback: handleGoogleCredential
+  });
+
+  google.accounts.id.renderButton(
+    document.getElementById("google-btn-container"),
+    {
+      type: "standard",
+      theme: "outline",
+      size: "large",
+      text: "continue_with",
+      shape: "pill",
+      width: document.getElementById("google-btn-container").offsetWidth
+    }
+  );
+};
