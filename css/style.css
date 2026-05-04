@@ -975,11 +975,6 @@ html, body {
   }
 }
 
-.g_id_signin {
-  display: flex;
-  justify-content: center;
-}
-
 .btn-primary,
 .g_id_signin > div {
   height: 50px !important;
@@ -992,4 +987,8 @@ html, body {
 .g_id_signin {
   width: 100% !important;
   display: block;
+}
+
+.g_id_signin iframe {
+  min-width: 100% !important;
 }
