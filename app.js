@@ -52,7 +52,7 @@ window.onLogout = function () {
         google.accounts.id.renderButton(container, {
           type: "standard", shape: "pill", theme: "outline",
           text: "continue_with", size: "large",
-          logo_alignment: "left", width: 320,
+          logo_alignment: "left",
         });
       }
     }
