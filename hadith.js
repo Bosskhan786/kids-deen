@@ -31,14 +31,13 @@ window.loadTodayHadith = async function () {
 
     if (engRes.status === "fulfilled") {
       const d = engRes.value;
-      // fawazahmed0 schema: { hadiths: [{ body }] } or { hadith: [{ body }] }
       const arr = d.hadiths || d.hadith || [];
-      engText = (arr[0]?.body || arr[0]?.text || "").trim();
+      engText = (arr[0]?.body || arr[0]?.text || "").trim().replace(/\s+/g, " ");
     }
     if (araRes.status === "fulfilled") {
       const d = araRes.value;
       const arr = d.hadiths || d.hadith || [];
-      araText = (arr[0]?.body || arr[0]?.text || "").trim();
+      araText = (arr[0]?.body || arr[0]?.text || "").trim().replace(/\s+/g, " ");
     }
   } catch (e) {
     console.warn("Hadith API fetch error:", e);
@@ -66,14 +65,20 @@ window.loadTodayHadith = async function () {
 };
 
 /* ---------- Render hadith card ---------- */
+function decodeHtml(html) {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  return txt.value;
+}
+
 function renderHadith(h) {
   document.getElementById("loading-state").classList.add("hidden");
   document.getElementById("hadith-content").classList.remove("hidden");
 
-  document.getElementById("hadith-emoji").textContent       = h.emoji;
-  document.getElementById("hadith-arabic").textContent      = h.arabic || "";
-  document.getElementById("hadith-text").textContent        = h.text;
-  document.getElementById("hadith-explanation").textContent = h.explanation;
+  document.getElementById("hadith-emoji").textContent        = h.emoji;
+  document.getElementById("hadith-arabic").textContent       = h.arabic || "";
+  document.getElementById("hadith-text").textContent         = decodeHtml(h.text);
+  document.getElementById("hadith-explanation").textContent  = h.explanation;
   document.getElementById("hadith-source-label").textContent = h.source;
 }
 
