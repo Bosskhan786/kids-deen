@@ -42,6 +42,14 @@ body {
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%; /* prevent iOS auto font-size boost */
   text-size-adjust: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+html, body {
+  overflow-x: hidden;
 }
 
 /* ---------- Stars background ---------- */
@@ -797,4 +805,96 @@ body {
   line-height: 1.6; text-align: center;
   background: rgba(0,0,0,.12);
   border-radius: 16px; padding: .9rem 1rem;
+}
+
+
+/* ============================================================
+   🔥 MOBILE FIX (SMALL DEVICES ≤ 480px)
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+  html {
+    font-size: 15px;
+  }
+
+  #app {
+    padding: 0 12px 100px;
+  }
+
+  /* Header tighter */
+  .app-header {
+    padding: 0.8rem 0;
+  }
+
+  .app-name {
+    font-size: 1rem;
+  }
+
+  /* Hadith card */
+  .hadith-card {
+    padding: 1rem;
+  }
+
+  .hadith-arabic {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  .hadith-text {
+    font-size: 1rem;
+  }
+
+  .hadith-explanation {
+    font-size: 0.8rem;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .btn-action {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    min-width: unset;
+  }
+
+  /* Action buttons stack better */
+  .action-row {
+    flex-direction: column;
+  }
+
+  /* Quiz options */
+  .quiz-option {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+
+  /* Auth card */
+  .auth-card {
+    padding: 1rem;
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+  }
+
+  /* Avatar smaller */
+  .avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  /* Bottom nav fix */
+  .bottom-nav {
+    height: 60px;
+  }
+
+  .nav-btn {
+    min-height: 50px;
+    padding: 0.4rem;
+  }
 }
